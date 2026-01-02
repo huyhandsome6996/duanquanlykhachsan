@@ -31,7 +31,13 @@ def chi_tiet_phong(request, ma_phong):
 
 #us-03: task: Cập nhật trạng thái phòng sang đang thuê
 def check_in(request, ma_phong):
-    pass
+    phong = get_object_or_404(Phong, ma_phong=ma_phong)
+
+    if phong.trang_thai == 'trong':
+        phong.trang_thai = 'dang_thue'
+        phong.save()
+
+    return redirect('khach_san:chi_tiet_phong', ma_phong=ma_phong)
 
 #us-03: task: Cập nhật trạng thái phòng về trống
 def check_out(request, ma_phong):
