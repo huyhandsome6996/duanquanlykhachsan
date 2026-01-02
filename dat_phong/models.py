@@ -101,4 +101,4 @@ class SuDungDichVu(models.Model):
     thoi_diem = models.DateTimeField(auto_now_add=True)
 
     def thanh_tien(self):
-        pass
+        return self.so_luong * self.dich_vu.gia
