@@ -10,3 +10,9 @@ def danh_sach_phong(request):
 #us-03: task: Xem chi tiết phòng
 def chi_tiet_phong(request, ma_phong):
     pass
+
+
+
+#us-03: task: Cập nhật trạng thái phòng sang đang thuê
+def check_in(request, ma_phong):
+    pass
