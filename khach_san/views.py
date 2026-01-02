@@ -16,3 +16,7 @@ def chi_tiet_phong(request, ma_phong):
 #us-03: task: Cập nhật trạng thái phòng sang đang thuê
 def check_in(request, ma_phong):
     pass
+
+#us-03: task: Cập nhật trạng thái phòng về trống
+def check_out(request, ma_phong):
+    pass 
