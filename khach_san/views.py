@@ -13,7 +13,19 @@ def danh_sach_phong(request):
 
 #us-03: task: Xem chi tiết phòng
 def chi_tiet_phong(request, ma_phong):
-    pass
+    phong = get_object_or_404(Phong, ma_phong=ma_phong)
+
+    dat_phong_hien_tai = DatPhong.objects.filter(
+        phong=phong,
+        dang_o=True
+    ).first()
+
+    context = {
+        'phong': phong,
+        'dat_phong_hien_tai': dat_phong_hien_tai
+    }
+
+    return render(request, 'khach_san/chi_tiet_phong.html', context)
 
 
 
