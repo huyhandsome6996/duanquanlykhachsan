@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8npjwuh8=y_3dgmv&rm!@$vhvq+clc=j*suvms&7lh=)h#!cmw'
+SECRET_KEY = 'django-insecure-3&$yo8^2ieud&p1st0tq*szitkwubui%qvuo+_xs_nc^*_(^zl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.humanize',
+    "jazzmin",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,9 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'khach_san',
     'dat_phong',
-    'hoa_don',
     'bao_cao',
+    'hoa_don',
+    
+
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,6 +76,9 @@ TEMPLATES = [
         },
     },
 ]
+
+
+
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -118,5 +127,54 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
-STATICFILES_DIRS = [BASE_DIR / 'static']
+
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Quản lý khách sạn",
+    "site_header": "Spring View Garden SaPa",
+    "site_brand": "Hotel Admin",
+
+    "site_logo": "images/logo.png",
+    "login_logo": "images/logo.png",
+
+    "welcome_sign": "Chào mừng quản trị viên",
+
+    "show_sidebar": True,
+    "navigation_expanded": True,
+      
+    "theme": "flatly",
+    "dark_mode_theme": None, 
+    "icons": {
+        "dat_phong.DatPhong": "fas fa-bed",
+        "dat_phong.DichVu": "fas fa-concierge-bell",
+        "dat_phong.SuDungDichVu": "fas fa-receipt",
+        "khach_san.Phong": "fas fa-door-open",
+        "khach_san.LoaiPhong": "fas fa-tags",
+        "hoa_don.HoaDon": "fas fa-file-invoice-dollar",
+    },
+
+    "topmenu_links": [
+        {
+            "name": "Trang người dùng",
+            "url": "/",
+            "new_window": False,
+        },
+    ],
+
+    # ✅ PHẦN QUAN TRỌNG NHẤT
+    "custom_links": {
+        "Hoa_Don": [
+            {
+                "name": "📊 Báo cáo doanh thu",
+                "url": "/admin/hoa_don/hoadon/bao-cao-doanh-thu/",
+                "icon": "fas fa-chart-line",
+            }
+        ]
+    },
+}
+
+SITE_URL = "/"
+
