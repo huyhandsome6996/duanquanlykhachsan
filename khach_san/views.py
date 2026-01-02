@@ -41,4 +41,23 @@ def check_in(request, ma_phong):
 
 #us-03: task: Cập nhật trạng thái phòng về trống
 def check_out(request, ma_phong):
-    pass 
+    phong = get_object_or_404(Phong, ma_phong=ma_phong)
+
+    if request.method == 'POST':
+        so_dem = int(request.POST.get('so_dem', 1))
+        gia = phong.loai_phong.gia_mot_dem
+        tong_tien = so_dem * gia
+
+        phong.trang_thai = 'trong'
+        phong.save()
+
+        return render(request, 'khach_san/ket_qua_thanh_toan.html', {
+            'phong': phong,
+            'so_dem': so_dem,
+            'gia': gia,
+            'tong_tien': tong_tien
+        })
+
+    return render(request, 'khach_san/xac_nhan_check_out.html', {
+        'phong': phong
+    }) 
