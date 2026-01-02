@@ -4,7 +4,11 @@ from dat_phong.models import DatPhong
 
 #us-03: task: Hiển thị danh sách phòng
 def danh_sach_phong(request):
-    pass
+    danh_sach_phong = Phong.objects.select_related('loai_phong').all()
+    return render(request, 'khach_san/danh_sach_phong.html', {
+        'danh_sach_phong': danh_sach_phong
+    })
+
 
 
 #us-03: task: Xem chi tiết phòng
