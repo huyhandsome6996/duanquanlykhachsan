@@ -91,3 +91,14 @@ class DichVu(models.Model):
 
     def __str__(self):
         return self.ten_dich_vu
+    
+#us-05: task: -Tạo model SuDungDichVu liên kết DatPhong và DichVu
+#             -Cài đặt hàm tính thành tiền dịch vụ
+class SuDungDichVu(models.Model):
+    dat_phong = models.ForeignKey(DatPhong, on_delete=models.CASCADE)
+    dich_vu = models.ForeignKey(DichVu, on_delete=models.PROTECT)
+    so_luong = models.PositiveIntegerField(default=1)
+    thoi_diem = models.DateTimeField(auto_now_add=True)
+
+    def thanh_tien(self):
+        pass
