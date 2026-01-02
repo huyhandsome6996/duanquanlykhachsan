@@ -5,3 +5,8 @@ from dat_phong.models import DatPhong
 #us-03: task: Hiển thị danh sách phòng
 def danh_sach_phong(request):
     pass
+
+
+#us-03: task: Xem chi tiết phòng
+def chi_tiet_phong(request, ma_phong):
+    pass
