@@ -83,3 +83,22 @@ class DatPhong(models.Model):
     class Meta:
         ordering = ['-dang_o', '-ngay_nhan']
 
+#us-05: task: Tạo model DichVu lưu tên, giá, đơn vị dịch vụ
+class DichVu(models.Model):
+    ten_dich_vu = models.CharField(max_length=100)
+    gia = models.PositiveIntegerField()
+    don_vi = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.ten_dich_vu
+    
+#us-05: task: -Tạo model SuDungDichVu liên kết DatPhong và DichVu
+#             -Cài đặt hàm tính thành tiền dịch vụ
+class SuDungDichVu(models.Model):
+    dat_phong = models.ForeignKey(DatPhong, on_delete=models.CASCADE)
+    dich_vu = models.ForeignKey(DichVu, on_delete=models.PROTECT)
+    so_luong = models.PositiveIntegerField(default=1)
+    thoi_diem = models.DateTimeField(auto_now_add=True)
+
+    def thanh_tien(self):
+        return self.so_luong * self.dich_vu.gia

@@ -21,4 +21,11 @@ def tao_dat_phong(request):
 def danh_sach_dat_phong(request):
     pass
 
+#us-05: task: -Xây dựng chức năng thêm dịch vụ cho đặt phòng
+#             -Lưu số lượng dịch vụ sử dụng
+@staff_member_required
+def them_dich_vu(request, dat_phong_id):
+    pass
+
+
 
