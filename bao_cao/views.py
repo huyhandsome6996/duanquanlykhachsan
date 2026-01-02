@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from khach_san.models import Phong
-from dat_phong.models import DatPhong
+
 
 
 
