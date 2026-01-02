@@ -83,3 +83,11 @@ class DatPhong(models.Model):
     class Meta:
         ordering = ['-dang_o', '-ngay_nhan']
 
+#us-05: task: Tạo model DichVu lưu tên, giá, đơn vị dịch vụ
+class DichVu(models.Model):
+    ten_dich_vu = models.CharField(max_length=100)
+    gia = models.PositiveIntegerField()
+    don_vi = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.ten_dich_vu
