@@ -71,7 +71,15 @@ class DatPhong(models.Model):
 
             self.ma_khach = f"KH{number:02d}"
 
+        # logic trạng thái ở (chuẩn bị cho checkout)
+        if self.ngay_tra:
+            self.dang_o = False
+
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.ma_khach} - {self.ten_khach}"
 
     class Meta:
         ordering = ['-dang_o', '-ngay_nhan']
+
