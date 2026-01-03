@@ -14,12 +14,49 @@ from django.urls import reverse
 
 @staff_member_required
 def tao_dat_phong(request):
-    pass
+    phong_trong = Phong.objects.filter(trang_thai='trong')
 
+    if request.method == 'POST':
+        phong_id = request.POST.get('phong')
+        phong = get_object_or_404(Phong, id=phong_id)
+
+        if phong.trang_thai != 'trong':
+            return render(request, 'dat_phong/tao_dat_phong.html', {
+                'phong_trong': phong_trong,
+                'error': 'Phòng này hiện không còn trống.'
+            })
+
+        ten_khach = request.POST.get('ten_khach')
+        loai_khach = request.POST.get('loai_khach')
+        ngay_nhan = datetime.strptime(request.POST.get('ngay_nhan'), '%Y-%m-%d').date()
+        ngay_tra_du_kien = datetime.strptime(request.POST.get('ngay_tra_du_kien'), '%Y-%m-%d').date()
+
+        DatPhong.objects.create(
+            phong=phong,
+            ten_khach=ten_khach,
+            loai_khach=loai_khach,
+            ngay_nhan=ngay_nhan,
+            ngay_tra_du_kien=ngay_tra_du_kien,
+            dang_o=True
+        )
+
+        phong.trang_thai = 'dang_thue'
+        phong.save()
+
+        return redirect('bao_cao:trang_chu')
+
+    return render(request, 'dat_phong/tao_dat_phong.html', {
+        'phong_trong': phong_trong
+    })
 # us-04: task: Hiển thị danh sách đặt phòng theo trạng thái và thời gian
 @staff_member_required
 def danh_sach_dat_phong(request):
-    pass
+    danh_sach = DatPhong.objects.select_related('phong') \
+        .order_by('-dang_o', '-ngay_nhan')
+
+    return render(request, 'dat_phong/danh_sach_dat_phong.html', {
+        'danh_sach': danh_sach
+    })
 
 #us-05: task: -Xây dựng chức năng thêm dịch vụ cho đặt phòng
 #             -Lưu số lượng dịch vụ sử dụng
