@@ -146,7 +146,9 @@ def lich_hen_create(request):
     if request.method == 'POST':
         form = LichHenForm(request.POST)
         if form.is_valid():
-            form.save()
+            lich = form.save(commit=False)
+            lich.created_by = request.user
+            lich.save()
             return redirect('dat_phong:lich_hen_list')
     else:
         initial = {}
