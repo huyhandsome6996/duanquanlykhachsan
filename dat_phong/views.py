@@ -105,6 +105,14 @@ def check_out(request, dat_phong_id):
     tien_phong = so_dem * gia_mot_dem
 
     if request.method == 'POST':
+        dat_phong.ngay_tra = ngay_tra
+        dat_phong.dang_o = False
+        dat_phong.save()
+
+        phong = dat_phong.phong
+        phong.trang_thai = 'trong'
+        phong.save()
+
         return redirect('hoa_don:chi_tiet', dat_phong.id)
 
     return render(request, 'dat_phong/checkout.html', {
