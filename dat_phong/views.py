@@ -51,6 +51,11 @@ def tao_dat_phong(request):
 # us-04: task: Hiển thị danh sách đặt phòng theo trạng thái và thời gian
 @staff_member_required
 def danh_sach_dat_phong(request):
-    pass
+    danh_sach = DatPhong.objects.select_related('phong') \
+        .order_by('-dang_o', '-ngay_nhan')
+
+    return render(request, 'dat_phong/danh_sach_dat_phong.html', {
+        'danh_sach': danh_sach
+    })
 
 
