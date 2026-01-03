@@ -102,7 +102,11 @@ def check_out(request, dat_phong_id):
         so_dem = 1
 
     gia_mot_dem = dat_phong.phong.loai_phong.gia_mot_dem
+    ds_dich_vu = SuDungDichVu.objects.filter(dat_phong=dat_phong)
+    tong_dich_vu = sum(dv.thanh_tien() for dv in ds_dich_vu)
+
     tien_phong = so_dem * gia_mot_dem
+    tong_tien = tien_phong + tong_dich_vu
 
     if request.method == 'POST':
         dat_phong.ngay_tra = ngay_tra
@@ -113,10 +117,23 @@ def check_out(request, dat_phong_id):
         phong.trang_thai = 'trong'
         phong.save()
 
+        HoaDon.objects.get_or_create(
+            dat_phong=dat_phong,
+            defaults={
+                'tien_phong': tien_phong,
+                'tien_dich_vu': tong_dich_vu,
+                'tong_tien': tong_tien,
+                'trang_thai': 'chua_tt'
+            }
+        )
+
         return redirect('hoa_don:chi_tiet', dat_phong.id)
 
     return render(request, 'dat_phong/checkout.html', {
         'dat_phong': dat_phong,
         'so_dem': so_dem,
         'tien_phong': tien_phong,
+        'ds_dich_vu': ds_dich_vu,
+        'tien_dich_vu': tong_dich_vu,
+        'tong_tien': tong_tien,
     })
