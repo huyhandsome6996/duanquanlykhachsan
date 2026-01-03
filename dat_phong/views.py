@@ -3,8 +3,8 @@ from django.utils import timezone
 from datetime import datetime
 
 from khach_san.models import Phong
-from .models import DatPhong, SuDungDichVu, DichVu #,LichHen
-# from hoa_don.models import HoaDon
+from .models import DatPhong, SuDungDichVu, DichVu ,LichHen
+from hoa_don.models import HoaDon
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -137,3 +137,28 @@ def check_out(request, dat_phong_id):
         'tien_dich_vu': tong_dich_vu,
         'tong_tien': tong_tien,
     })
+
+
+#us-08: task: -Xây dựng chức năng tạo lịch hẹn
+#             -Gán người tạo lịch hẹn
+@login_required
+def lich_hen_create(request):
+    pass
+
+
+# =========================
+# DANH SÁCH LỊCH HẸN
+# =========================
+#us-08: task: -Hiển thị danh sách lịch hẹn theo ngày giờ
+@staff_member_required
+def lich_hen_list(request):
+    pass
+
+
+# =========================
+# XỬ LÝ LỊCH HẸN
+# =========================
+#us-08: task: -Xây dựng chức năng xác nhận/hủy lịch hẹn
+@staff_member_required
+def lich_hen_action(request, pk, action):
+    pass
