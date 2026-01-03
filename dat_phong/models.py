@@ -105,6 +105,15 @@ class SuDungDichVu(models.Model):
 
 
 class LichHen(models.Model):
+    STATUS_PENDING = 'pending'
+    STATUS_CONFIRMED = 'confirmed'
+    STATUS_CANCELLED = 'cancelled'
+    STATUS_CHOICES = [
+        (STATUS_PENDING, 'Chờ xác nhận'),
+        (STATUS_CONFIRMED, 'Đã xác nhận'),
+        (STATUS_CANCELLED, 'Đã hủy'),
+    ]
+
     phong = models.ForeignKey(
         'khach_san.Phong',
         on_delete=models.CASCADE,
@@ -115,6 +124,11 @@ class LichHen(models.Model):
     ngay_den = models.DateField()
     gio_den = models.TimeField(null=True, blank=True)
     ghi_chu = models.TextField(blank=True)
+    trang_thai = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default=STATUS_PENDING
+    )
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
