@@ -180,4 +180,12 @@ def lich_hen_list(request):
 #us-08: task: -Xây dựng chức năng xác nhận/hủy lịch hẹn
 @staff_member_required
 def lich_hen_action(request, pk, action):
-    pass
+    lich = get_object_or_404(LichHen, pk=pk)
+
+    if action == 'confirm':
+        lich.trang_thai = LichHen.STATUS_CONFIRMED
+    elif action == 'cancel':
+        lich.trang_thai = LichHen.STATUS_CANCELLED
+
+    lich.save()
+    return redirect('dat_phong:lich_hen_list')
