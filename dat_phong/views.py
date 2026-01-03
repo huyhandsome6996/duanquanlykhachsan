@@ -3,8 +3,8 @@ from django.utils import timezone
 from datetime import datetime
 
 from khach_san.models import Phong
-from .models import DatPhong, SuDungDichVu, DichVu #,LichHen
-# from hoa_don.models import HoaDon
+from .models import DatPhong, SuDungDichVu, DichVu ,LichHen
+from hoa_don.models import HoaDon
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -137,3 +137,55 @@ def check_out(request, dat_phong_id):
         'tien_dich_vu': tong_dich_vu,
         'tong_tien': tong_tien,
     })
+
+
+#us-08: task: -Xây dựng chức năng tạo lịch hẹn
+#             -Gán người tạo lịch hẹn
+@login_required
+def lich_hen_create(request):
+    if request.method == 'POST':
+        form = LichHenForm(request.POST)
+        if form.is_valid():
+            lich = form.save(commit=False)
+            lich.created_by = request.user
+            lich.save()
+            return redirect('dat_phong:lich_hen_list')
+    else:
+        initial = {}
+        phong_id = request.GET.get('phong_id')
+        if phong_id:
+            initial['phong'] = phong_id
+        form = LichHenForm(initial=initial)
+
+    return render(request, 'dat_phong/lich_hen_create.html', {'form': form})
+
+
+# =========================
+# DANH SÁCH LỊCH HẸN
+# =========================
+#us-08: task: -Hiển thị danh sách lịch hẹn theo ngày giờ
+@staff_member_required
+def lich_hen_list(request):
+    danh_sach = LichHen.objects.select_related('phong') \
+        .order_by('-ngay_den', '-gio_den')
+
+    return render(request, 'dat_phong/lich_hen_list.html', {
+        'danh_sach': danh_sach
+    })
+
+
+# =========================
+# XỬ LÝ LỊCH HẸN
+# =========================
+#us-08: task: -Xây dựng chức năng xác nhận/hủy lịch hẹn
+@staff_member_required
+def lich_hen_action(request, pk, action):
+    lich = get_object_or_404(LichHen, pk=pk)
+
+    if action == 'confirm':
+        lich.trang_thai = LichHen.STATUS_CONFIRMED
+    elif action == 'cancel':
+        lich.trang_thai = LichHen.STATUS_CANCELLED
+
+    lich.save()
+    return redirect('dat_phong:lich_hen_list')
