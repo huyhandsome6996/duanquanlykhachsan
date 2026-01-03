@@ -143,7 +143,19 @@ def check_out(request, dat_phong_id):
 #             -Gán người tạo lịch hẹn
 @login_required
 def lich_hen_create(request):
-    pass
+    if request.method == 'POST':
+        form = LichHenForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dat_phong:lich_hen_list')
+    else:
+        initial = {}
+        phong_id = request.GET.get('phong_id')
+        if phong_id:
+            initial['phong'] = phong_id
+        form = LichHenForm(initial=initial)
+
+    return render(request, 'dat_phong/lich_hen_create.html', {'form': form})
 
 
 # =========================
