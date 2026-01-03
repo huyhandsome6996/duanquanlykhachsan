@@ -30,11 +30,14 @@ def them_dich_vu(request, dat_phong_id):
 
     if request.method == 'POST':
         dich_vu_id = request.POST.get('dich_vu')
+        so_luong = int(request.POST.get('so_luong', 1))
+
         dich_vu = get_object_or_404(DichVu, id=dich_vu_id)
 
         SuDungDichVu.objects.create(
             dat_phong=dat_phong,
-            dich_vu=dich_vu
+            dich_vu=dich_vu,
+            so_luong=so_luong
         )
 
         return redirect(
@@ -46,5 +49,3 @@ def them_dich_vu(request, dat_phong_id):
         'dat_phong': dat_phong,
         'danh_sach_dich_vu': danh_sach_dich_vu
     })
-
-
