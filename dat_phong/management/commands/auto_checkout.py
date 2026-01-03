@@ -3,6 +3,9 @@ from django.utils import timezone
 from dat_phong.models import DatPhong
 
 
+from django.core.management.base import BaseCommand
+from django.utils import timezone
+
 class Command(BaseCommand):
     help = "Tự động trả phòng khi đến ngày trả dự kiến"
 
@@ -18,5 +21,9 @@ class Command(BaseCommand):
             dp.ngay_tra = today
             dp.dang_o = False
             dp.save()
+
+            phong = dp.phong
+            phong.trang_thai = 'trong'
+            phong.save()
 
         self.stdout.write("Auto checkout completed.")
