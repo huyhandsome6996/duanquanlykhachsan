@@ -86,3 +86,12 @@ def them_dich_vu(request, dat_phong_id):
         'dat_phong': dat_phong,
         'danh_sach_dich_vu': danh_sach_dich_vu
     })
+
+
+#us-06: task: -Xây dựng chức năng check-out
+#             - Tính số đêm lưu trú
+#             -Cập nhật trạng thái phòng
+#             -Tạo dữ liệu hóa đơn
+@staff_member_required
+def check_out(request, dat_phong_id):
+    pass
