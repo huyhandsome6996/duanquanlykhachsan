@@ -13,4 +13,13 @@ def chi_tiet_hoa_don(request, dat_phong_id):
 
 #us-07: task: -Xác nhận thanh toán hóa đơn (Cập nhật trạng thái hóa đơn sang đã thanh toán.)
 def xac_nhan_thanh_toan(request, dat_phong_id):
-    pass
+    hoa_don = get_object_or_404(HoaDon, dat_phong_id=dat_phong_id)
+
+    if request.method == 'POST':
+        hoa_don.trang_thai = 'da_tt'
+        hoa_don.save()
+        return redirect('hoa_don:chi_tiet', dat_phong_id)
+
+    return render(request, 'hoa_don/xac_nhan_thanh_toan.html', {
+        'hoa_don': hoa_don
+    })
