@@ -96,9 +96,19 @@ def them_dich_vu(request, dat_phong_id):
 def check_out(request, dat_phong_id):
     dat_phong = get_object_or_404(DatPhong, id=dat_phong_id, dang_o=True)
 
+    ngay_tra = timezone.now().date()
+    so_dem = (ngay_tra - dat_phong.ngay_nhan).days
+    if so_dem <= 0:
+        so_dem = 1
+
+    gia_mot_dem = dat_phong.phong.loai_phong.gia_mot_dem
+    tien_phong = so_dem * gia_mot_dem
+
     if request.method == 'POST':
         return redirect('hoa_don:chi_tiet', dat_phong.id)
 
     return render(request, 'dat_phong/checkout.html', {
         'dat_phong': dat_phong,
+        'so_dem': so_dem,
+        'tien_phong': tien_phong,
     })
