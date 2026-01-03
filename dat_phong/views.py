@@ -40,6 +40,9 @@ def tao_dat_phong(request):
             dang_o=True
         )
 
+        phong.trang_thai = 'dang_thue'
+        phong.save()
+
         return redirect('bao_cao:trang_chu')
 
     return render(request, 'dat_phong/tao_dat_phong.html', {
