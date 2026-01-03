@@ -10,7 +10,8 @@ class HoaDon(models.Model):
     dat_phong = models.OneToOneField(
         DatPhong,
         on_delete=models.CASCADE,
-        related_name='hoa_don'
+        related_name='hoa_don',
+        verbose_name="Đặt phòng"
     )
 
     tien_phong = models.PositiveIntegerField(default=0)
@@ -23,5 +24,7 @@ class HoaDon(models.Model):
         default='chua_tt'
     )
 
+    thoi_diem_tao = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
-        return f"Hoa don {self.id}"
+        return f"Hóa đơn {self.id} - {self.dat_phong.ten_khach}"
