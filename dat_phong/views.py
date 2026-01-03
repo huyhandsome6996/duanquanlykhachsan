@@ -166,7 +166,12 @@ def lich_hen_create(request):
 #us-08: task: -Hiển thị danh sách lịch hẹn theo ngày giờ
 @staff_member_required
 def lich_hen_list(request):
-    pass
+    danh_sach = LichHen.objects.select_related('phong') \
+        .order_by('-ngay_den', '-gio_den')
+
+    return render(request, 'dat_phong/lich_hen_list.html', {
+        'danh_sach': danh_sach
+    })
 
 
 # =========================
