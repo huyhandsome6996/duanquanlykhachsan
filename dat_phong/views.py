@@ -94,4 +94,11 @@ def them_dich_vu(request, dat_phong_id):
 #             -Tạo dữ liệu hóa đơn
 @staff_member_required
 def check_out(request, dat_phong_id):
-    pass
+    dat_phong = get_object_or_404(DatPhong, id=dat_phong_id, dang_o=True)
+
+    if request.method == 'POST':
+        return redirect('hoa_don:chi_tiet', dat_phong.id)
+
+    return render(request, 'dat_phong/checkout.html', {
+        'dat_phong': dat_phong,
+    })
