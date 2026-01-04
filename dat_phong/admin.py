@@ -25,3 +25,15 @@ class DichVuAdmin(admin.ModelAdmin):
 @admin.register(SuDungDichVu)
 class SuDungDichVuAdmin(admin.ModelAdmin):
     list_display = ('dat_phong', 'dich_vu', 'so_luong', 'thoi_diem')
+
+
+#us-08: task: -Quản lý lịch hẹn trong admin
+#             - Lọc theo trạng thái và ngày
+from django.contrib import admin
+from .models import LichHen
+
+@admin.register(LichHen)
+class LichHenAdmin(admin.ModelAdmin):
+    list_display = ('ten_khach', 'phong', 'ngay_den', 'gio_den', 'trang_thai', 'created_by', 'ngay_tao')
+    list_filter = ('trang_thai', 'ngay_den')
+    search_fields = ('ten_khach', 'so_dien_thoai', 'phong__ma_phong')
