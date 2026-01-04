@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block page_title %} <i class="bi bi-calendar-plus me-2"></i>Tạo lịch hẹn {% endblock %}
+{% block content %}
+<div class="container">
+  <h3>Tạo lịch hẹn</h3>
+  <div class="card p-4 mt-3">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div class="mb-3">
+        {{ form.phong.label_tag }} 
+        {{ form.phong }}
+      </div>
+      <div class="mb-3">
+        {{ form.ten_khach.label_tag }} 
+        {{ form.ten_khach }}
+      </div>
+      <div class="mb-3">
+        {{ form.so_dien_thoai.label_tag }} 
+        {{ form.so_dien_thoai }}
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          {{ form.ngay_den.label_tag }} {{ form.ngay_den }}
+        </div>
+        <div class="col-md-6 mb-3">
+          {{ form.gio_den.label_tag }} {{ form.gio_den }}
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.ghi_chu.label_tag }} {{ form.ghi_chu }}
+      </div>
+      <div>
+        <button class="btn btn-primary" type="submit">Lưu lịch hẹn</button>
+        <a class="btn btn-secondary" href="{% url 'dat_phong:lich_hen_list' %}">Quay lại</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
