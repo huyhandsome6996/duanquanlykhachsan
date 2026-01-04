@@ -17,3 +17,11 @@ class DatPhongAdmin(admin.ModelAdmin):
 
     list_filter = ('loai_khach', 'dang_o')
     search_fields = ('ten_khach',)
+
+#us-05: task: Quản lý dịch vụ và dịch vụ đã sử dụng trong admin
+@admin.register(DichVu)
+class DichVuAdmin(admin.ModelAdmin):
+    list_display = ('ten_dich_vu', 'gia', 'don_vi')
+@admin.register(SuDungDichVu)
+class SuDungDichVuAdmin(admin.ModelAdmin):
+    list_display = ('dat_phong', 'dich_vu', 'so_luong', 'thoi_diem')
