@@ -30,8 +30,12 @@ ALLOWED_HOSTS = [
     'localhost',
     'duanquanlykhachsan-dav8.onrender.com',
     '.onrender.com',
+    
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://duanquanlykhachsan-dav8.onrender.com",
+]
 
 
 # Application definition
@@ -63,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'config.urls'
