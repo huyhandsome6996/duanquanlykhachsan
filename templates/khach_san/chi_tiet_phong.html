@@ -389,7 +389,14 @@
     <div class="quick-actions-section">
      <h6>Thao tác nhanh</h6>
      <div class="quick-actions-buttons">
-      {% if phong.trang_thai == 'trong' %} <a href="{% url 'khach_san:check_in' phong.ma_phong %}" class="btn-room-action success"> <i class="bi bi-box-arrow-in-right"></i> Check-in </a> {% elif phong.trang_thai == 'dang_thue' and dat_phong_hien_tai %} <a href="{% url 'dat_phong:check_out' dat_phong_hien_tai.id %}" class="btn-room-action danger"> <i class="bi bi-box-arrow-right"></i> Check-out &amp; Tính tiền </a> {% endif %}
+
+      
+      {% if phong.trang_thai == 'dang_thue' and dat_phong_hien_tai %}
+<a href="{% url 'dat_phong:check_out' dat_phong_hien_tai.id %}" class="btn-room-action danger">
+    <i class="bi bi-box-arrow-right"></i> Check-out &amp; Tính tiền
+</a>
+{% endif %}
+
      </div>
     </div> {% endif %}
    </div>
